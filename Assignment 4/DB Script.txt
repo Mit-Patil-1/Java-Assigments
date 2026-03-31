@@ -1,0 +1,95 @@
+CREATE DATABASE IF NOT EXISTS ass4;
+USE ass4;
+
+-- Q1: Book lookup via JMS/EJB/JPA
+CREATE TABLE IF NOT EXISTS book_master (
+    book_id BIGINT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    author VARCHAR(150) NOT NULL,
+    price DOUBLE NOT NULL
+);
+
+INSERT INTO book_master (book_id, title, author, price) VALUES
+(1, 'Enterprise Java Basics', 'K. Pandey', 450.00),
+(2, 'EJB in Practice', 'A. Sharma', 620.00),
+(3, 'Learning JMS', 'M. Patel', 510.00)
+ON DUPLICATE KEY UPDATE title = VALUES(title), author = VALUES(author), price = VALUES(price);
+
+-- Q2: Currency converter
+CREATE TABLE IF NOT EXISTS currency_rate (
+    rate_id BIGINT PRIMARY KEY,
+    from_code VARCHAR(10) NOT NULL,
+    to_code VARCHAR(10) NOT NULL,
+    factor DOUBLE NOT NULL,
+    UNIQUE KEY uq_currency_pair (from_code, to_code)
+);
+
+INSERT INTO currency_rate (rate_id, from_code, to_code, factor) VALUES
+(1, 'INR', 'USD', 0.012),
+(2, 'USD', 'INR', 83.000),
+(3, 'INR', 'EUR', 0.011),
+(4, 'EUR', 'INR', 90.000),
+(5, 'USD', 'EUR', 0.920),
+(6, 'EUR', 'USD', 1.080)
+ON DUPLICATE KEY UPDATE factor = VALUES(factor);
+
+-- Q3: Computer store cart
+CREATE TABLE IF NOT EXISTS computer_item (
+    item_id BIGINT PRIMARY KEY,
+    item_name VARCHAR(150) NOT NULL,
+    price DOUBLE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sale_order (
+    order_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    created_at DATETIME NOT NULL,
+    total_amount DOUBLE NOT NULL
+);
+
+INSERT INTO computer_item (item_id, item_name, price) VALUES
+(1, 'Laptop', 55000),
+(2, 'Keyboard', 1200),
+(3, 'Mouse', 700),
+(4, 'Monitor', 9000)
+ON DUPLICATE KEY UPDATE item_name = VALUES(item_name), price = VALUES(price);
+
+-- Q4: Student-Subject many-to-many
+CREATE TABLE IF NOT EXISTS student (
+    student_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    student_name VARCHAR(120) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS subject (
+    subject_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    subject_name VARCHAR(120) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS student_subject (
+    student_id BIGINT NOT NULL,
+    subject_id BIGINT NOT NULL,
+    PRIMARY KEY (student_id, subject_id),
+    CONSTRAINT fk_ss_student FOREIGN KEY (student_id) REFERENCES student(student_id),
+    CONSTRAINT fk_ss_subject FOREIGN KEY (subject_id) REFERENCES subject(subject_id)
+);
+
+-- Q5: Mall items, categories, suppliers
+CREATE TABLE IF NOT EXISTS mall_category (
+    category_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(120) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS mall_supplier (
+    supplier_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    supplier_name VARCHAR(120) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mall_item (
+    item_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(120) NOT NULL,
+    price DOUBLE NOT NULL,
+    category_id BIGINT NOT NULL,
+    supplier_id BIGINT NOT NULL,
+    CONSTRAINT fk_mall_item_category FOREIGN KEY (category_id) REFERENCES mall_category(category_id),
+    CONSTRAINT fk_mall_item_supplier FOREIGN KEY (supplier_id) REFERENCES mall_supplier(supplier_id)
+);
+

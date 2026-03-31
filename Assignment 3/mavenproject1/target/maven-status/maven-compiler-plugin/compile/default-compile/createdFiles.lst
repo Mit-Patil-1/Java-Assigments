@@ -1,0 +1,5 @@
+Servlet\cb.class
+com\mycompany\mavenproject1\resources\JakartaEE10Resource.class
+SessionBean\CurrencyConvertBean.class
+com\mycompany\mavenproject1\JakartaRestConfiguration.class
+Servlet\CurrencyServlet.class

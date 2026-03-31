@@ -1,0 +1,5 @@
+entity/MallItem.class
+entity/Category.class
+ejb/MallFacadeBean.class
+entity/Supplier.class
+servlet/MallServlet.class

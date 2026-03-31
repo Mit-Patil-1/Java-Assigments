@@ -1,0 +1,5 @@
+entity/SaleOrder.class
+ejb/ShoppingCartBean$CartLine.class
+ejb/ShoppingCartBean.class
+servlet/CartServlet.class
+entity/ComputerItem.class

@@ -1,0 +1,7 @@
+/home/kevil-gandhi/Sem 8/Java/Assignment 4/Ass-4_P01/src/main/java/ejb/BookCatalogBean.java
+/home/kevil-gandhi/Sem 8/Java/Assignment 4/Ass-4_P01/src/main/java/ejb/BookMessageSender.java
+/home/kevil-gandhi/Sem 8/Java/Assignment 4/Ass-4_P01/src/main/java/ejb/BookRequestConsumer.java
+/home/kevil-gandhi/Sem 8/Java/Assignment 4/Ass-4_P01/src/main/java/ejb/BookResponseStore.java
+/home/kevil-gandhi/Sem 8/Java/Assignment 4/Ass-4_P01/src/main/java/entity/Book.java
+/home/kevil-gandhi/Sem 8/Java/Assignment 4/Ass-4_P01/src/main/java/servlet/BookRequestServlet.java
+/home/kevil-gandhi/Sem 8/Java/Assignment 4/Ass-4_P01/src/main/java/servlet/BookResponseServlet.java

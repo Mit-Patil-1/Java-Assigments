@@ -1,0 +1,106 @@
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| Ass_1              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| test_db            |
++--------------------+
+6 rows in set (0.012 sec)
+
+MariaDB [(none)]> use Ass_1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [Ass_1]> show tables;
++-----------------+
+| Tables_in_Ass_1 |
++-----------------+
+| Category_Master |
+| customers       |
++-----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [Ass_1]> desc Category_Master;
++--------------------+--------------+------+-----+---------+-------+
+| Field              | Type         | Null | Key | Default | Extra |
++--------------------+--------------+------+-----+---------+-------+
+| category_id        | int(11)      | NO   | PRI | NULL    |       |
+| category_name      | varchar(100) | YES  |     | NULL    |       |
+| parent_category_id | int(11)      | YES  | MUL | NULL    |       |
++--------------------+--------------+------+-----+---------+-------+
+3 rows in set (0.011 sec)
+
+MariaDB [Ass_1]> desc customers;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id               | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name             | varchar(100) | YES  |     | NULL    |                |
+| home_address     | varchar(200) | YES  |     | NULL    |                |
+| home_phone       | varchar(20)  | YES  |     | NULL    |                |
+| business_address | varchar(200) | YES  |     | NULL    |                |
+| business_phone   | varchar(20)  | YES  |     | NULL    |                |
+| fax              | varchar(20)  | YES  |     | NULL    |                |
+| mobile           | varchar(20)  | YES  |     | NULL    |                |
+| pager            | varchar(20)  | YES  |     | NULL    |                |
+| marital_status   | varchar(20)  | YES  |     | NULL    |                |
+| no_of_children   | int(11)      | YES  |     | NULL    |                |
+| annual_income    | double       | YES  |     | NULL    |                |
+| photo            | longblob     | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+13 rows in set (0.001 sec)
+
+
+
+
+select * from Category_Master;
++-------------+---------------------+--------------------+
+| category_id | category_name       | parent_category_id |
++-------------+---------------------+--------------------+
+|           1 | Clothing            |               NULL |
+|           2 | Male Clothing       |                  1 |
+|           3 | Female Clothing     |                  1 |
+|           4 | Shirts              |                  2 |
+|           5 | Dress Material      |                  3 |
+|           6 | Trousers            |                  2 |
+|           7 | Gowns               |                  3 |
+|           8 | Silk Dress Material |                  5 |
+|           9 | T-Shirts            |                  4 |
+|          10 | Full-Arm Shirts     |                  4 |
+|          11 | Patiala-Dress       |                  5 |
++-------------+---------------------+--------------------+
+11 rows in set (0.011 sec)
+
+
+
+SHOW PROCEDURE STATUS WHERE Db = 'Ass_1';
++-------+-----------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+-----------------------+-----------------------+
+| Db    | Name                  | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection  | Database Collation    |
++-------+-----------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+-----------------------+-----------------------+
+| Ass_1 | getAvgIncomeOfMarried | PROCEDURE | root@localhost | 2025-12-25 11:53:35 | 2025-12-25 11:53:35 | DEFINER       |         | utf8mb4              | utf8mb4_uca1400_ai_ci | utf8mb4_uca1400_ai_ci |
++-------+-----------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+-----------------------+-----------------------+
+1 row in set (0.011 sec)
+
+
+
+SHOW CREATE PROCEDURE getAvgIncomeOfMarried\G
+*************************** 1. row ***************************
+           Procedure: getAvgIncomeOfMarried
+            sql_mode: STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+    Create Procedure: CREATE DEFINER=`root`@`localhost` PROCEDURE `getAvgIncomeOfMarried`(OUT avgIncome DOUBLE)
+BEGIN
+    SELECT AVG(annual_income)
+    INTO avgIncome
+    FROM customers
+    WHERE marital_status = 'Married';
+END
+character_set_client: utf8mb4
+collation_connection: utf8mb4_uca1400_ai_ci
+  Database Collation: utf8mb4_uca1400_ai_ci
+1 row in set (0.010 sec)
+

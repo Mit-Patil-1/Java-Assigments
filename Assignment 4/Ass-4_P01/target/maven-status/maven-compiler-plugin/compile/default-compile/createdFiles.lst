@@ -1,0 +1,7 @@
+servlet/BookRequestServlet.class
+ejb/BookMessageSender.class
+servlet/BookResponseServlet.class
+ejb/BookResponseStore.class
+entity/Book.class
+ejb/BookCatalogBean.class
+ejb/BookRequestConsumer.class

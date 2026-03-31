@@ -1,0 +1,3 @@
+ejb/CurrencyConverterBean.class
+entity/CurrencyRate.class
+servlet/CurrencyServlet.class

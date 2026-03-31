@@ -1,0 +1,4 @@
+entity/Subject.class
+servlet/CollegeServlet.class
+ejb/CollegeBean.class
+entity/Student.class
